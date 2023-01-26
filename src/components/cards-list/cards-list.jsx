@@ -1,14 +1,12 @@
-
-
+import './cards-list.styles.css'
+import Card from '../card/card'
 
 function CardsList({ monsters }) {
     return (
-        <div>
-            {console.log(monsters)}
+        <div className="cards-list">
             {monsters.map((monsters) => {
-                return (
-                    <h1 key={monsters.id}>{monsters.name}</h1>
-                )
+                const { name, id, email } = monsters
+                return <Card key={id} MonsterId={id} MonsterName={name} MonsterEmail={email} />
             })}
         </div>
     )

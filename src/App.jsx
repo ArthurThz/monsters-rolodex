@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import CardsList from './components/cards-list/cards-list';
+import SearchBox from './components/search-box/search-box';
 
 function App() {
   const [SearchValue, setSearchValue] = useState('');
@@ -10,29 +11,24 @@ function App() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => response.json())
       .then((users) => setMonsters(users))
+      .catch((err) => console.log(err))
   }, [])
 
-  var filteredMonsters = Monsters.filter((item) => {
+  let filteredMonsters = Monsters.filter((item) => {
     return item.name.toLowerCase().includes(SearchValue)
   })
 
-  let catchEvent = (e) => {
+  let eventHandler = (e) => {
     setSearchValue(e.target.value.toLowerCase())
   }
+
   return (
-
     <div className="App">
-      <input type="search"
-        className='search-box'
-        placeholder='search monsters'
-        onChange={catchEvent} />
-      {/* {
-        filteredMonsters.map((item) => {
-          return <h1 key={item.id}>{item.name}</h1>
-        })
-      } */}
+      <h1 className="app-title">Monsters Rolodex</h1>
+      <SearchBox onChangeHandler={eventHandler}
+        placeholder='Search Mosters'
+        className='monsters-search-box' />
       <CardsList monsters={filteredMonsters} />
-
     </div>
   )
 }
